@@ -3,7 +3,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
-from sklearn.feature_selection import f_classif, f_regression
+from sklearn.feature_selection import f_classif
 from statsmodels.stats.multitest import multipletests as fdr_correction
 
 
@@ -133,12 +133,12 @@ class ANOVA:
         P_vals, P_vals_corrected = pvals(X_subset, self.y, thr=self.thr, method=self.method)
         if corrected:
             if return_pvals:
-                return X_subset.iloc[:, P_vals_corrected[0]], P_vals_corrected
+                return X_subset.iloc[:, P_vals_corrected[0]], P_vals_corrected, P_vals
             else:
                 return X_subset.iloc[:, P_vals_corrected[0]]
         else:
             if return_pvals:
-                return X_subset.iloc[:, P_vals <= self.thr], P_vals_corrected
+                return X_subset.iloc[:, P_vals <= self.thr], P_vals_corrected, P_vals
             else:
                 return X_subset.iloc[:, P_vals <= self.thr]
             

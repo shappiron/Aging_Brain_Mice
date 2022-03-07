@@ -37,7 +37,7 @@ def bins_to_genes_intersection(bins, genes, genes_cols=['seq_id', 'start', 'end'
     br = pr.PyRanges(b)
 
     result = ar.join(br)
-    result = result.df#.drop_duplicates()
+    result = result.df.drop_duplicates()
     
     if len(result) == 0:
         print('Zero intersection result.')
