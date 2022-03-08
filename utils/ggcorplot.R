@@ -16,7 +16,7 @@
 ggheatmap <- function(data, 
     type='full_intersection', method='spearman', top=500, pvplot=F,
     label_size=1.2, value_size=0.8, title="Spearman correlation",
-    measure="logFC", criterion="FDR",
+    measure="logFC", criterion="FDR", criterion_thr=0.05,
     orderCol = T, orderRow = T, dendroLineSize = 0.5, 
     fontsize = 20, color = "Spectral", scaleName = "value", distMethod = "euclidean", 
     clustMethod = "complete", revColors=F, scale_name="Spearman \ncorrelation ") {
@@ -90,7 +90,7 @@ ggheatmap <- function(data,
         FDR_table <- as.data.frame(tmp, nrow=nrow(corr_matrix_list$P.Value))
 
         cellnote <- cm
-        cellnote[FDR_table >= 0.05] <- NA
+        cellnote[FDR_table >= criterion_thr] <- NA
     }else{
         print("Please, choose a type")
     }
