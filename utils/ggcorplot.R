@@ -59,7 +59,7 @@ ggheatmap <- function(data,
                 pair <- transform(merge(x, y, by="row.names", sort=FALSE), row.names=Row.names, Row.names=NULL)
                 #pair <- pair[complete.cases(pair),]
                 if (nrow(pair) > 1){
-                    test <- cor.test(pair[[1]], pair[[2]], method=method)
+                    test <- cor.test(pair[[1]], pair[[2]], method=method, na.action='na.omit')
                     sp <- test$estimate
                     pv <- test$p.value
                 }else{
