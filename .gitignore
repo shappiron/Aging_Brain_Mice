@@ -9,6 +9,7 @@ __pycache__/
 # myfolders
 /figs
 /subdata
+/tmp
 
 # Distribution / packaging
 .Python
