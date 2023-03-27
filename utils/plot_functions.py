@@ -46,22 +46,22 @@ def plot_hic(matrix, start, fin, profile=None, profnames=None,
     plt.show()
     
     
-def plot_hic_triangle(matrix, start=None, fin=None, profile=None, profnames=None, 
-                      chrom_start=0, vmin=None, vmax=None,
-                      ax=None):
+def plot_hic_triangle(matrix, profile=None, profnames=None, 
+                      chrom_start=0, vmin=None, vmax=None, interp='none',
+                      savepath=None, ax=None):
     vmin = vmin if vmin is not None else matrix.min()
     vmax = vmax if vmax is not None else matrix.max()
-    if (start is None) and (fin is None):
-        rotated_img = ndimage.rotate(matrix, 45, cval=np.nan)
-    else:
-        rotated_img = ndimage.rotate(matrix[start-chrom_start:fin-chrom_start,
-                                            start-chrom_start:fin-chrom_start], 45, cval=np.nan)
+    rotated_img = ndimage.rotate(matrix, 45, cval=np.nan)
     if ax is not None:
         ax.imshow(rotated_img[:rotated_img.shape[0]//2], 
                    interpolation='None', cmap='RdBu_r', vmin=vmin, vmax=vmax)
         ax.axis('off')
     else:
-        ax = plt.imshow(rotated_img[:rotated_img.shape[0]//2], 
-                   interpolation='None', cmap='RdBu_r', vmin=vmin, vmax=vmax)
+        plt.figure(figsize=(18, 12))
+        ax = plt.subplot(111)
+        ax.imshow(rotated_img[:rotated_img.shape[0]//2], 
+                  interpolation=interp, cmap='RdBu_r', vmin=vmin, vmax=vmax)
         ax.axis('off')
-        return ax
+    if savepath is not None:
+        plt.savefig(savepath, dpi=300)
+    plt.show()
